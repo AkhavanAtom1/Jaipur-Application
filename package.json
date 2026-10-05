@@ -1,0 +1,39 @@
+{
+  "name": "jaipur-online",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Real-time 2-player Jaipur card game: React + Vite client, Cloudflare Worker + Durable Object (WebSocket) authoritative server.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n worker,client -c yellow,magenta \"npm:dev:worker\" \"npm:dev:client\"",
+    "dev:worker": "wrangler dev --port 8787",
+    "dev:client": "vite",
+    "build": "vite build",
+    "deploy": "npm run build && wrangler deploy",
+    "test": "node --test \"server/tests/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "build:mobile": "vite build --mode mobile",
+    "android:setup": "npm install @capacitor/core@8.5.2 @capacitor/android@8.5.2 && npm install -D @capacitor/cli@8.5.2 && npx cap add android",
+    "android:sync": "npm run build:mobile && npx cap sync android",
+    "android:open": "npm run android:sync && npx cap open android",
+    "android:run": "npm run android:sync && npx cap run android"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "wrangler": "^4.0.0",
+    "@cloudflare/workers-types": "^5.20260930.2"
+  }
+}
