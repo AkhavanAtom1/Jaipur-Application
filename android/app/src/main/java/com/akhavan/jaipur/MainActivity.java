@@ -101,11 +101,6 @@ public class MainActivity extends Activity {
         if (Build.VERSION.SDK_INT >= 26) {
             WebView.enableSlowWholeDocumentDraw();
         }
-
-        if (BuildConfig.DEBUG) {
-            WebView.setWebContentsDebuggingEnabled(true);
-        }
-
         webView.setWebChromeClient(new WebChromeClient());
 
         webView.setWebViewClient(new WebViewClient() {
