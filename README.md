@@ -54,7 +54,7 @@ server/
   tests/           node:test suites (engine, rooms, 300-game simulation)
   index.ts         Express + Socket.IO bootstrap, serves dist/client in production
 client/src/
-  net/             Socket.IO client + typed ack helpers, safe storage
+  net/             Reconnecting WebSocket client + typed ack helpers, safe storage
   hooks/           useRoom (session + reconnection), useFlip (card/token motion), useCountUp
   game/            Selection → intent (UI pre-validation), log formatting, synthesized sound
   components/      Cards, tokens, market, bazaar, seats, action bar, ledger, rules, summary
