@@ -16,7 +16,7 @@
     "test": "node --test \"server/tests/**/*.test.ts\"",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "build:mobile": "vite build --mode mobile",
-    "android:setup": "npm install @capacitor/core@8.5.2 @capacitor/android@8.5.2 && npm install -D @capacitor/cli@8.5.2 && npx cap add android",
+    "android:setup": "npx cap add android",
     "android:sync": "npm run build:mobile && npx cap sync android",
     "android:open": "npm run android:sync && npx cap open android",
     "android:run": "npm run android:sync && npx cap run android"
