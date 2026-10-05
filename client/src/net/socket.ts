@@ -1,6 +1,6 @@
 import type { AckResult, SeatGrant } from '../../../shared/protocol.ts';
 import type { GameAction } from '../../../shared/types.ts';
-import { getGameWebSocketUrl, reportNativeConfigProblem } from './config.ts';
+import { getGameWebSocketUrl } from './config.ts';
 
 /**
  * Minimal reconnecting WebSocket client (replaces socket.io-client).
@@ -45,15 +45,7 @@ class GameSocket {
 
   private open() {
     if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) return;
-    const wsUrl = getGameWebSocketUrl();
-    if (!wsUrl) {
-      reportNativeConfigProblem();
-      this.connected = false;
-      this.fire('disconnect');
-      setTimeout(() => this.open(), 4000);
-      return;
-    }
-    const ws = new WebSocket(wsUrl);
+    const ws = new WebSocket(getGameWebSocketUrl());
     this.ws = ws;
 
     ws.onmessage = (ev) => {
