@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Jaipur</string>
+
+    <!-- CHANGE THIS ONE LINE TO YOUR LIVE HTTPS CLOUDFLARE GAME URL. -->
+    <string name="game_url">https://REPLACE-WITH-YOUR-LIVE-JAIPUR-DOMAIN.example.com/</string>
+</resources>
