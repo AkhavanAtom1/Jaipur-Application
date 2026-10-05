@@ -1,30 +1,27 @@
-const configuredOrigin = import.meta.env.VITE_GAME_ORIGIN?.trim().replace(/\/+$/, '') || null;
+const nativeMode = (() => {
+  try {
+    return new URLSearchParams(location.search).get('native') === '1';
+  } catch {
+    return false;
+  }
+})();
 
-export const isNativeApp =
-  typeof location !== 'undefined' &&
-  location.hostname === 'localhost' &&
-  (location.protocol === 'https:' || location.protocol === 'capacitor:');
+export const isNativeApp = nativeMode;
 
 export function getPublicGameOrigin(): string | null {
-  if (configuredOrigin) return configuredOrigin;
-  return isNativeApp ? null : location.origin;
+  return typeof location !== 'undefined' ? location.origin : null;
 }
 
 export function getGameWebSocketUrl(): string | null {
-  const origin = getPublicGameOrigin();
-  if (!origin) return null;
+  if (typeof location === 'undefined') return null;
 
-  const url = new URL('/ws', origin);
+  const url = new URL('/ws', location.origin);
   url.protocol = url.protocol === 'https:' ? 'wss:' : 'ws:';
   return url.toString();
 }
 
-let warned = false;
-
 export function reportNativeConfigProblem() {
-  if (warned || !isNativeApp) return;
-  warned = true;
-  console.error(
-    'Jaipur Android build is missing VITE_GAME_ORIGIN. Create client/.env.mobile and set it to the public HTTPS URL of the live Cloudflare game.',
-  );
+  // The Android build loads the live HTTPS game directly, so no mobile env
+  // variable is required. Kept as a no-op for compatibility with the socket
+  // client.
 }
